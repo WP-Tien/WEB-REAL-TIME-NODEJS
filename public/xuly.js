@@ -1,4 +1,4 @@
-var socket = io("http://localhost:3000/");
+var socket = io("https://nht-chat-app-nodejs.herokuapp.com/");
 var html = '';
 
 socket.on("server-send-dki-thatbat", function() {
