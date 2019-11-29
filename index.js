@@ -29,8 +29,6 @@ io.on("connection", function(socket) {
         // socket.emit('Server-send-data', data + " 888");
         // case3
         socket.broadcast.emit('Server-send-data', data + " 888");
-
-
     })
 
 }); 
