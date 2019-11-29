@@ -24,26 +24,52 @@
     <script src="xuly.js"></script>
   </head>
   <body>
-    <div class="container" id="loginForm">
-      <div class="text-center">What is your name ?</div>
-      <input type="text" id="txtUsername" />
-      <input type="button" value="Register" id="btnRegister" />
+    <div class="container mt-4" id="loginForm">
+      <div class="row align-items-center h-100">
+        <div class="col-3 mx-auto">
+          <div class="text-center">
+            <img
+              id="profile-img"
+              class="rounded-circle profile-img-card"
+              src="https://ptetutorials.com/images/user-profile.png"
+            />
+            <p> 
+            </p>
+                <input
+                type="text"
+                id="txtUsername"
+                class="form-control form-group"
+                placeholder="Your name"
+                required
+                autofocus
+                />
+    
+                <button
+                id="btnRegister"
+                class="btn btn-lg btn-primary btn-block btn-signin"
+                type="button"
+                >
+                Join now
+                </button>
+           
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="container" id="chatForm">
-      <h3 class="text-center" id="currentUser"></h3>
       <div class="messaging">
         <div class="inbox_msg">
           <div class="inbox_people">
             <div class="headind_srch">
               <div class="recent_heading">
-                <h4>Onine Users</h4>
+                <h4 id="currentUser">Onine Users</h4>
               </div>
               <div class="srch_bar">
                 <div class="stylish-input-group">
                   <span class="input-group-addon">
                     <button type="button" id="btnSignout">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i> Sign out
+                      <i class="fa fa-sign-out" aria-hidden="true"></i> Sign out
                     </button>
                   </span>
                 </div>
@@ -71,7 +97,6 @@
           </div>
           <div class="mesgs">
             <div class="msg_history">
-             
               <!-- <div class="outgoing_msg">
                 <div class="sent_msg">
                   <p>Test which is a new approach to have all solutions</p>
@@ -92,7 +117,6 @@
                   </div>
                 </div>
               </div> -->
-              
             </div>
             <div class="type_msg">
               <div class="input_msg_write">

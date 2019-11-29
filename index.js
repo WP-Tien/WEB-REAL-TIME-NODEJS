@@ -33,13 +33,26 @@ io.on("connection", function(socket) {
 
     });
 
-    socket.on("client-send-signout", function() {
+    socket.on("disconnect", function() {
+        var data = 'đi rồi ông giáo ạ';
         mangUsers.splice( 
             mangUsers.indexOf( socket.Username ),
             1
          );
 
         socket.broadcast.emit("server-send-danh-sach-Users", mangUsers);
+        socket.broadcast.emit("server-send-tam-biet", {un:socket.Username, nd:data} );
+    })
+
+    socket.on("client-send-signout", function() {
+        var data = 'ấy sign out !';
+        mangUsers.splice( 
+            mangUsers.indexOf( socket.Username ),
+            1
+         );
+
+        socket.broadcast.emit("server-send-danh-sach-Users", mangUsers);
+        socket.broadcast.emit("server-send-tam-biet", {un:socket.Username, nd:data} );
     });
 
     socket.on("user-send-message", function(data) {

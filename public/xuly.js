@@ -22,9 +22,15 @@ socket.on("server-send-message-to-me", function(data) {
     $(".msg_history").append("<div class='outgoing_msg'><div class='sent_msg'>" + data.un + "<p>" + data.nd + "</p><span class='time_date'> 11:01 AM | June 9</span></div></div>");
 });
 
+socket.on("server-send-tam-biet", function(data) {
+    $(".msg_history").append("<div class='incoming_msg'><div class='incoming_msg_img'><img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'/> </div> <div class='received_msg'><div class='received_withd_msg'><i>" + data.un + ' ' +data.nd + "</i><span class='time_date'> 11:01 AM | Yesterday</span></div></div></div>");
+})
+
 socket.on("server-send-message-to-another", function(data) {
     $(".msg_history").append("<div class='incoming_msg'><div class='incoming_msg_img'><img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'/> </div> <div class='received_msg'><div class='received_withd_msg'>" + data.un + "<p>" + data.nd + "</p><span class='time_date'> 11:01 AM | Yesterday</span></div></div></div>");
 });
+
+
 
 socket.on("server-ai-dang-ngo-chu", function (data) {
     $(".msg_history").append("<div class='incoming_msg dang_go'><div class='incoming_msg_img'><img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'/> </div> <div class='received_msg'><div class='received_withd_msg'>" + data.un + "<p>" + data.nd + "</p><span class='time_date'> 11:01 AM | Yesterday</span></div></div></div>");
