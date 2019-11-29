@@ -1,4 +1,4 @@
-var PORT = precess.env.PORT || 3000; // add heroku port
+var PORT = process.env.PORT || 3000; // add heroku port
 // add module express
 var express = require("express");
 var app     = express();
