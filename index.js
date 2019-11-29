@@ -11,27 +11,55 @@ var server  = require("http").Server(app);
 var io      = require("socket.io")(server);
 server.listen(3000);
 
-// lắng nghe on - ai gọi lên connection
+var mangUsers=[];
+
 io.on("connection", function(socket) {
-    console.log("Co nguoi ket noi: " + socket.id );
+    console.log("Connection: " + socket.id);
 
-    socket.on("disconnect", function() {
-        console.log( socket.id + "ngat ket noi !!!" );
-    })
+    socket.on("client-send-username", function(data) {
+        console.log( data );
 
-    // Lắng nghe emit của client
-    socket.on("Client-send-data", function(data) {
-        console.log(data);
+        if( mangUsers.indexOf(data) >= 0 ) {
+            
+            socket.emit("server-send-dki-thatbat");
 
-        // case1
-        // io.sockets.emit('Server-send-data', data + " 888");
-        // case2
-        // socket.emit('Server-send-data', data + " 888");
-        // case3
-        socket.broadcast.emit('Server-send-data', data + " 888");
-    })
+        } else {
+            
+            mangUsers.push(data);
+            socket.Username = data; // tạo thêm Username 
+            socket.emit("server-send-dki-thanhcong", data);
+            io.sockets.emit("server-send-danh-sach-Users", mangUsers);
+        }
 
-}); 
+    });
+
+    socket.on("client-send-signout", function() {
+        mangUsers.splice( 
+            mangUsers.indexOf( socket.Username ),
+            1
+         );
+
+        socket.broadcast.emit("server-send-danh-sach-Users", mangUsers);
+    });
+
+    socket.on("user-send-message", function(data) {
+        socket.emit("server-send-message-to-me", {un:socket.Username, nd:data} );
+
+        socket.broadcast.emit("server-send-message-to-another", {un:socket.Username, nd:data} )
+    });
+
+
+
+    socket.on("toi-dang-go-chu", function() {
+        data = '.......';
+        socket.broadcast.emit("server-ai-dang-ngo-chu", {un:socket.Username, nd:data} );
+    });
+
+    socket.on("toi-ngung-go-chu", function() {
+        io.sockets.emit("server-ngung-go-chu");
+    });
+
+});
 
 app.get("/", function(req, res) {
     res.render( "trangchu" )
@@ -48,7 +76,7 @@ app.get("/", function(req, res) {
 // case3 : client A phát lên server : server chỉ phát lại cho mọi người TRỪ client A 
 // server: socket.broadcast.emit
 
-// case4: chat riêng 
+// case4: room gôm nhóm socket lại chat riêng 
 // io.to("socketid").emit()
 
 // heroku free 100 connection, có tiền tăng độ mượn :D
