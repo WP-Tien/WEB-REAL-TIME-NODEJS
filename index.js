@@ -1,3 +1,4 @@
+var PORT = precess.env.PORT || 3000; // add heroku port
 // add module express
 var express = require("express");
 var app     = express();
@@ -9,7 +10,9 @@ app.set("views", "./views");
 
 var server  = require("http").Server(app);
 var io      = require("socket.io")(server);
-server.listen(3000);
+server.listen(PORT, function (){
+    console.log('Chat server running');
+});
 
 var mangUsers=[];
 
